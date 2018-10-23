@@ -1,10 +1,11 @@
+#TODO:
+# 1. strip id from figure legend text
+# 2. assemble links in side menu rather than make them non-functional
+
 import pypandoc
 import os
 import sys
 import re
-#TODO:
-# 1. strip id from figure legend text
-# 2. assemble links in side menu rather than make them non-functional
 
 # tell browser we are using UTF-8 otherwise many unicode characters are handled incorrectly
 # provide link to external style sheet
