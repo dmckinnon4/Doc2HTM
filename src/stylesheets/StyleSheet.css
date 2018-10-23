@@ -1,0 +1,172 @@
+body {
+  margin-top: 30px;
+  margin-left: 0px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+  background-color: white;
+}
+
+div.main_text {
+ margin-left: 80px;
+ padding: 0px;
+}
+
+p {
+  font-family: georgia;
+  font-size: 13pt;
+  color: #404040;
+  line-height: 170%;
+  text-indent: 4%;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  max-width: 550px;
+}
+
+img.small {
+  transform:scale(1,1);
+  transform-origin: bottom left;
+}
+
+img.big {
+  transform:scale(1.5,1.5);
+  transform-origin: bottom left;
+}
+
+p.legend {
+  font-family: helvetica;
+  font-size: 12pt;
+  color: #404040;
+  line-height: 140%;
+  text-indent: 0%;
+  padding: 5px 10px;
+  text-align: left;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  max-width: 550px;
+}
+
+/* this keeps line spacing even when super and subscripts are present */
+sub, sup { line-height: 0; }
+
+ol {
+  font-family: georgia;
+  font-size: 18px;
+  color: #404040;
+  line-height: 120%;
+  max-width: 550px;
+}
+
+h1 {
+  font-family: Helvetica;
+  font-size: 30pt;
+  color: #690002;
+  text-align: left;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-family: Helvetica;
+  font-size: 18pt;
+  color: #145252;
+  text-align: left;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+h3 {
+  font-family: Helvetica;
+  font-size: 14pt;
+  color: #690002;
+  text-align: left;
+  margin-top:15px;
+  margin-bottom: 5px;
+}
+h4 {
+  text-indent: 4%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+h4 a {
+  font-family: Helvetica;
+  font-size: 14pt;
+  color: #447888;
+  text-align: left;
+}
+h4 a:hover {
+    color: #335a66;
+}
+/* for side bar */
+ul {
+    list-style-type: none;
+    position: fixed;
+    background-color: white;
+    font-family: helvetica;
+    font-size: 20pt;
+    margin: 0;
+    padding: 0;
+    width: 50px;
+    height: 100%;
+    overflow: auto;
+}
+li a {
+    display: block;
+    padding: 4px 16px;
+    text-decoration: none;
+}
+li a:link {
+  color: #d9d9d9; /* light grey */
+}
+/* visited link */
+li a:visited {
+  color: #d9d9d9; /* light grey */
+}
+li a:hover {
+    background-color: #d9d9d9; /* light grey */
+    color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+div.tablecontainer {
+  margin-left: 0px; /* undo effects of div above */
+  padding: 0px;     /* undo effects of div above */
+  max-width: 550px;
+  }
+table {
+  text-align:center;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Helvetica;
+  font-size: 11pt;
+  color: #404040;
+  max-width: 550px;
+  margin-top: 15px;
+  margin-bottom: 0px
+}
+
+th {
+  text-align: left;
+  padding: 5px 10px;
+	background-color: #B2CFD8;
+}
+
+td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+/* eliminate word wrap in first column */
+td:first-child {
+  white-space: nowrap;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
