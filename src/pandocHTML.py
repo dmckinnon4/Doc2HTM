@@ -6,13 +6,14 @@ import pypandoc
 import os
 import sys
 import re
+from shutil import copyfile
 
 # tell browser we are using UTF-8 otherwise many unicode characters are handled incorrectly
 # provide link to external style sheet
 header = '''\
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<link href="StyleSheet.css" rel="stylesheet" type="text/css">
+<link href="normalstyle.css" rel="stylesheet" type="text/css">
 <html>
 <head >
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
@@ -58,8 +59,7 @@ footer = '''
 
 
 def cleanHTML(filePath, fileDirectory):
-    print(filePath)
-    html = pypandoc.convert(filePath, 'html5', extra_args=['--extract-media='+fileDirectory])
+    html = pypandoc.convert_file(filePath, 'html5', extra_args=['--extract-media='+fileDirectory])
     # use local reference to media folder
     html = re.sub(r'img.*?media', r'img src="media', html)
     # remove figure legend id which is too long
@@ -121,6 +121,11 @@ def bigFile(html, fileName, fileDirectory):
     outFile = os.path.join(fileDirectory, fileName + '_Big.html' )  
     with open(outFile, 'w', encoding="utf-8") as f:
         f.write(html)
+        
+def copyStyleSheet(htmlDirectory):
+    src = r'stylesheets/normalstyle.css'
+    dst = os.path.join(htmlDirectory, 'normalstyle.css')
+    copyfile(src, dst)
 
 
 if len(sys.argv) == 2:
@@ -138,7 +143,7 @@ htmlDirectory = os.path.join(fileDirectory, fileName + '_html')
 print('filePath = ', filePath)                                                                                                                                                                                                                                                            
 print('fileName = ', fileName)
 print('fileDirectory = ', fileDirectory)
-print('htmlDirectory = ', fileDirectory)
+print('htmlDirectory = ', htmlDirectory)
 
 
 # get a cleaned up HTML string from the word document
@@ -147,6 +152,8 @@ html = cleanHTML(filePath, htmlDirectory)
 # Note: pandoc creates the htmlDirectory in order to store the media files
 subChapters(html, fileName, htmlDirectory, sideMenu)
 bigFile(html, fileName, htmlDirectory)
+copyStyleSheet(htmlDirectory)
+
 
 
 
