@@ -11,27 +11,27 @@ Sub CreateHTML()
 ' create HTML from current document
 Dim myScriptResult As String
 Dim filePath As String
-Dim TheOS As String
+Dim isMacintosh As Boolean
 
-currentOS = Application.System.OperatingSystem
+isMacintosh = False
+If System.OperatingSystem = "Macintosh" Then
+    isMacintosh = True
+End If
 
 With ActiveDocument
     filePath = .FullName
+    Debug.Print "File path = " & filePath
     ' test if it is a web address
     pos = InStr(filePath, "http")
     If (pos > 0) Then
         MsgBox "Save files downloaded from internet to local disk before converting to HTML.", , "Error"
     Else
         .Save  'save document to file so pandoc uses latest version
-        If (currentOS = "Macintosh") Then
+        If isMacintosh Then
             ' Use applescript to run Python program
             ' Applescript file is located in: "/Users/david/Library/Application Scripts/com.microsoft.Word/pandocShellScrpt.scpt"
-            ' mac locations
-                ' python = "/Applications/anaconda/envs/py36/bin/python3.6"
-                ' doc2HTM = " ~/Documents/Python/Doc2HTM/src/pandocHTML.py "
-'comment out on Windows
-                'myScriptResult = AppleScriptTask("pandocShellScrpt.scpt", "scriptHandler", filePath)
-            Debug.Print myScriptResult
+            myScriptResult = AppleScriptTask("pandocShellScrpt.scpt", "scriptHandler", filePath)  'comment out on Windows
+            Debug.Print "AppleScript Result: " & myScriptResult
         Else ' default to Windows
             ' Windows locations
             python = "C:\Users\dmckinnon\AppData\Local\Continuum\anaconda3\python.exe "
@@ -41,12 +41,13 @@ With ActiveDocument
         End If
     End If
         
-    Debug.Print filePath
-    Debug.Print pos
+    Debug.Print "http position = " & pos
 
 End With
 
-End Sub  'CreateHTML
+'ActiveDocument.SaveAs2 FileName:="/Users/david/Documents/junk3.docx", FileFormat:=wdFormatXMLDocument
+
+End Sub  'CreateHTML_Mac
 
 Sub AdjustImageHeights()
 ' This subroutine adjusts image heights within document based on codes in the Alternative Text field
@@ -78,5 +79,3 @@ With ActiveDocument
     .Save ' save document to file
 End With
 End Sub 'AdjustImageHeights
-
-
