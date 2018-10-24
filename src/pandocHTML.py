@@ -126,8 +126,6 @@ def bigFile(html, fileName, fileDirectory):
 def copyStyleSheet(workingDirectory, htmlDirectory):
     src = os.path.join(workingDirectory, 'stylesheets/normalstyle.css')
     dst = os.path.join(htmlDirectory, 'normalstyle.css')
-    print('src = ', src)
-    print('dst = ', dst)
     copyfile(src, dst)
 
 
@@ -135,7 +133,7 @@ if len(sys.argv) == 2:
     filePath = sys.argv[1]
 else: # use standard test file
     if platform == "darwin":
-        filePath = r'/Users/david/Documents/Text Book/text/C1.docx'
+        filePath = r'testFile.docx'
     elif platform == "win32":
         filePath = r'testFile.docx'  
         filePath = r'C:\Users\dmckinnon\Desktop\C1.docx'
