@@ -4,6 +4,7 @@
 
 import pypandoc
 import os
+from sys import platform
 import sys
 import re
 from shutil import copyfile
@@ -122,28 +123,34 @@ def bigFile(html, fileName, fileDirectory):
     with open(outFile, 'w', encoding="utf-8") as f:
         f.write(html)
         
-def copyStyleSheet(htmlDirectory):
-    src = r'stylesheets/normalstyle.css'
+def copyStyleSheet(workingDirectory, htmlDirectory):
+    src = os.path.join(workingDirectory, 'stylesheets/normalstyle.css')
     dst = os.path.join(htmlDirectory, 'normalstyle.css')
+    print('src = ', src)
+    print('dst = ', dst)
     copyfile(src, dst)
 
 
 if len(sys.argv) == 2:
     filePath = sys.argv[1]
-else:
-    filePath = r'/Users/david/Documents/Text Book/text/C1.docx'
-#     filePath = r'C:\Users\dmckinnon\Documents\9 Software\Python\Doc2HTM\src\text\C1.docx'  # windows
+else: # use standard test file
+    if platform == "darwin":
+        filePath = r'/Users/david/Documents/Text Book/text/C1.docx'
+    elif platform == "win32":
+        filePath = r'testFile.docx'  
+        filePath = r'C:\Users\dmckinnon\Desktop\C1.docx'
 
 baseName = os.path.basename(filePath)
 fileDirectory = os.path.dirname(filePath)
 fileName, fileExtension = os.path.splitext(baseName)
 htmlDirectory = os.path.join(fileDirectory, fileName + '_html')
-
+workingDirectory = os.path.dirname(os.path.realpath(__file__))
   
 print('filePath = ', filePath)                                                                                                                                                                                                                                                            
 print('fileName = ', fileName)
 print('fileDirectory = ', fileDirectory)
 print('htmlDirectory = ', htmlDirectory)
+print('workingDirectory = ', workingDirectory)
 
 
 # get a cleaned up HTML string from the word document
@@ -152,7 +159,7 @@ html = cleanHTML(filePath, htmlDirectory)
 # Note: pandoc creates the htmlDirectory in order to store the media files
 subChapters(html, fileName, htmlDirectory, sideMenu)
 bigFile(html, fileName, htmlDirectory)
-copyStyleSheet(htmlDirectory)
+copyStyleSheet(workingDirectory, htmlDirectory)
 
 
 

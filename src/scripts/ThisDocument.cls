@@ -9,10 +9,11 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Sub CreateHTML()
 ' create HTML from current document
-Dim myScriptResult As String
-Dim filePath As String
 Dim isMacintosh As Boolean
+Dim filePath As String
+Dim myScriptResult As String
 
+' determine currrent operating system (only mac or windows)
 isMacintosh = False
 If System.OperatingSystem = "Macintosh" Then
     isMacintosh = True
@@ -23,6 +24,8 @@ With ActiveDocument
     Debug.Print "File path = " & filePath
     ' test if it is a web address
     pos = InStr(filePath, "http")
+    Debug.Print "http position = " & pos
+    
     If (pos > 0) Then
         MsgBox "Save files downloaded from internet to local disk before converting to HTML.", , "Error"
     Else
@@ -30,24 +33,21 @@ With ActiveDocument
         If isMacintosh Then
             ' Use applescript to run Python program
             ' Applescript file is located in: "/Users/david/Library/Application Scripts/com.microsoft.Word/pandocShellScrpt.scpt"
-            myScriptResult = AppleScriptTask("pandocShellScrpt.scpt", "scriptHandler", filePath)  'comment out on Windows
-            Debug.Print "AppleScript Result: " & myScriptResult
+'comment out on Windows
+                'myScriptResult = AppleScriptTask("pandocShellScrpt.scpt", "scriptHandler", filePath)
+                Debug.Print "AppleScript Result: " & myScriptResult
+            Debug.Print myScriptResult
         Else ' default to Windows
             ' Windows locations
             python = "C:\Users\dmckinnon\AppData\Local\Continuum\anaconda3\python.exe "
             doc2HTM = " ""C:\Users\dmckinnon\Documents\9 Software\Python\Doc2HTM\src\pandocHTML.py"" "
             RetVal = Shell(python & doc2HTM & filePath)
-            Debug.Print RetVal
+            Debug.Print "RetVal = " & RetVal
         End If
     End If
-        
-    Debug.Print "http position = " & pos
-
 End With
+End Sub  'CreateHTML
 
-'ActiveDocument.SaveAs2 FileName:="/Users/david/Documents/junk3.docx", FileFormat:=wdFormatXMLDocument
-
-End Sub  'CreateHTML_Mac
 
 Sub AdjustImageHeights()
 ' This subroutine adjusts image heights within document based on codes in the Alternative Text field
@@ -79,3 +79,5 @@ With ActiveDocument
     .Save ' save document to file
 End With
 End Sub 'AdjustImageHeights
+
+
