@@ -17,8 +17,8 @@ header = '''\
 <link href="normalstyle.css" rel="stylesheet" type="text/css">
 <html>
 <head >
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 <script>
 $(function(){
@@ -129,6 +129,7 @@ def copyStyleSheet(workingDirectory, htmlDirectory):
     copyfile(src, dst)
 
 
+
 if len(sys.argv) == 2:
     filePath = sys.argv[1]
 else: # use standard test file
@@ -156,7 +157,7 @@ html = cleanHTML(filePath, htmlDirectory)
 # print(html)
 # Note: pandoc creates the htmlDirectory in order to store the media files
 subChapters(html, fileName, htmlDirectory, sideMenu)
-bigFile(html, fileName, htmlDirectory)
+# bigFile(html, fileName, htmlDirectory)
 copyStyleSheet(workingDirectory, htmlDirectory)
 
 
