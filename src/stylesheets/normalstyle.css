@@ -22,14 +22,12 @@ p {
   max-width: 550px;
 }
 
-img.small {
-  transform:scale(1,1);
-  transform-origin: bottom left;
-}
-
-img.big {
-  transform:scale(1.5,1.5);
-  transform-origin: bottom left;
+ol {
+  font-family: georgia;
+  font-size: 18px;
+  color: #404040;
+  line-height: 120%;
+  max-width: 550px;
 }
 
 p.legend {
@@ -48,13 +46,46 @@ p.legend {
 /* this keeps line spacing even when super and subscripts are present */
 sub, sup { line-height: 0; }
 
-ol {
-  font-family: georgia;
-  font-size: 18px;
-  color: #404040;
-  line-height: 120%;
-  max-width: 550px;
+/*** Image Formatting ***/
+img {
+  display: block;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+img.small {
+  transform:scale(1,1);
+  transform-origin: bottom left;
+}
+
+img.big {
+  transform:scale(1.5,1.5);
+  transform-origin: bottom left;
+}
+
+/*** Video Formatting ***/
+video::-webkit-media-controls-panel {
+  background-image: none; !this eliminates horrible black gradient
+}
+/* kill off everything else except the timeline */
+/* video::-webkit-media-controls-timeline {} */
+video::-webkit-media-controls-timeline-container {display: none;}
+video::-webkit-media-controls-play-button {display: none;}
+video::-webkit-media-controls-volume-slider-container {display: none;}
+video::-webkit-media-controls-volume-slider {display: none;}
+video::-webkit-media-controls-mute-button {display: none;}
+video::-webkit-media-controls-current-time-display {display: none;}
+video::-webkit-media-controls-fullscreen-button {display: none;}
+video::-webkit-full-page-media::-webkit-media-controls-panel {display: none;}
+video::-webkit-media-controls-time-remaining-display {display: none;}
+video::-webkit-media-controls-seek-back-button {display: none;}
+video::-webkit-media-controls-seek-forward-button {display: none;}
+video::-webkit-media-controls-fullscreen-button {display: none;}
+video::-webkit-media-controls-rewind-button {display: none;}
+video::-webkit-media-controls-return-to-realtime-button {display: none;}
+video::-webkit-media-controls-toggle-closed-captions-button {display: none;}
+
 
 h1 {
   font-family: Helvetica;
@@ -96,7 +127,8 @@ h4 a {
 h4 a:hover {
     color: #335a66;
 }
-/* for side bar */
+
+/*** Side Bar Formatting ***/
 ul {
     list-style-type: none;
     position: fixed;
@@ -130,12 +162,7 @@ a {
   text-decoration: none;
 }
 
-img {
-  display: block;
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-}
+/**** Table Formatting ****/
 div.tablecontainer {
   margin-left: 0px; /* undo effects of div above */
   padding: 0px;     /* undo effects of div above */

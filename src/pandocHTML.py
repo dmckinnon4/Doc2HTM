@@ -17,8 +17,8 @@ header = '''\
 <link href="normalstyle.css" rel="stylesheet" type="text/css">
 <html>
 <head >
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 <script>
 $(function(){
@@ -76,7 +76,7 @@ def cleanHTML(filePath, fileDirectory):
     html = html.replace('</table>', '</table>\n</div>')
     return html
 
-def subChapters(html, fileName, fileDirectory, sideMenu):
+def subChapters(html, fileName, fileDirectory, sideMenu, workingDirectory):
     homeFileName = fileName + '.html'
     
     h2str = '<h2 id="' 
@@ -97,11 +97,16 @@ def subChapters(html, fileName, fileDirectory, sideMenu):
         link = link.format(currentFileName, subtitle)
         index = index + link + '\n'
         
+        # include plotly file if necessary
+        if "Plotly:" in pages[i]:
+            pages[i] = addPlotly(workingDirectory, pages[i])
+        
         # remove forward icon from last page
         if i == len(pages)-1:
             menu = menu.replace('&#8680;', '') 
 
         html = header + menu + h2str + pages[i] + footer  # add h2str back after split
+        
         outFile = os.path.join(fileDirectory, currentFileName)
         with open(outFile, 'w', encoding="utf-8") as f:
             f.write(html)
@@ -127,6 +132,24 @@ def copyStyleSheet(workingDirectory, htmlDirectory):
     src = os.path.join(workingDirectory, 'stylesheets/normalstyle.css')
     dst = os.path.join(htmlDirectory, 'normalstyle.css')
     copyfile(src, dst)
+
+def addPlotly(workingDirectory, html):
+    splitHtml = html.split('Plotly:', 1)
+    front = splitHtml[0]
+    splitHtml = splitHtml[1].split(':Plotly', 1)
+    fileNumber = splitHtml[0]
+    back = splitHtml[1]
+    fileName = 'plotly/plot' + fileNumber + '.html'
+    plotlyFile = os.path.join(workingDirectory, fileName)
+    with open(plotlyFile) as f:
+        plotlyScript = f.read()
+        
+    # recursion to look for more plots
+    if "Plotly:" in back:
+        back = addPlotly(workingDirectory, back)
+    
+    html = front + plotlyScript + back 
+    return html
 
 
 if len(sys.argv) == 2:
@@ -155,8 +178,8 @@ print('workingDirectory = ', workingDirectory)
 html = cleanHTML(filePath, htmlDirectory)  
 # print(html)
 # Note: pandoc creates the htmlDirectory in order to store the media files
-subChapters(html, fileName, htmlDirectory, sideMenu)
-bigFile(html, fileName, htmlDirectory)
+subChapters(html, fileName, htmlDirectory, sideMenu, workingDirectory)
+# bigFile(html, fileName, htmlDirectory)
 copyStyleSheet(workingDirectory, htmlDirectory)
 
 
