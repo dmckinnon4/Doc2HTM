@@ -61,6 +61,9 @@ footer = '''
 
 def cleanHTML(filePath, fileDirectory):
     html = pypandoc.convert_file(filePath, 'html5', extra_args=['--extract-media='+fileDirectory])
+    # for debugging
+    with open('test.html', 'w', encoding="utf-8") as f:
+            f.write(html)
     # use local reference to media folder
     html = re.sub(r'img.*?media', r'img src="media', html)
     # remove figure legend id which is too long
@@ -159,7 +162,7 @@ else: # use standard test file
         filePath = r'testFile.docx'
     elif platform == "win32":
         filePath = r'testFile.docx'  
-        filePath = r'C:\Users\dmckinnon\Desktop\C1.docx'
+#         filePath = r'C:\Users\dmckinnon\Desktop\C1.docx'
 
 baseName = os.path.basename(filePath)
 fileDirectory = os.path.dirname(filePath)
@@ -176,7 +179,6 @@ print('workingDirectory = ', workingDirectory)
 
 # get a cleaned up HTML string from the word document
 html = cleanHTML(filePath, htmlDirectory)  
-# print(html)
 # Note: pandoc creates the htmlDirectory in order to store the media files
 subChapters(html, fileName, htmlDirectory, sideMenu, workingDirectory)
 # bigFile(html, fileName, htmlDirectory)
