@@ -61,9 +61,9 @@ footer = '''
 
 def cleanHTML(filePath, fileDirectory):
     html = pypandoc.convert_file(filePath, 'html5', extra_args=['--extract-media='+fileDirectory])
-    # for debugging
-    with open('rawPandoc.html', 'w', encoding="utf-8") as f:
-            f.write(html)
+    # for debugging, throws a permission error when called from applescript, not sure why
+#     with open(r'rawOutput.html', 'w', encoding="utf-8") as f:
+#             f.write(html)
     # use local reference to media folder
     html = re.sub(r'img.*?media', r'img src="media', html)
     # remove figure legend id which is too long
