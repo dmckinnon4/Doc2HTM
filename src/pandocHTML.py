@@ -71,6 +71,9 @@ def cleanHTML(filePath, fileDirectory):
     # change h5 tags to class p.legend
     html = html.replace('<h5', '<p class="legend"')
     html = html.replace("</h5>", "</p>")
+    # get rid of breaks in math display and create paragraph class
+    html = html.replace('<p><br /><span class="math display">', '<p class="mathdisplay">')
+    html = html.replace("</span><br /></p>", "</p>")
     # get rid of paragraph marks in lists so that list CSS formating works
     html = html.replace('<li><p>', '<li>')
     html = html.replace('</li><p>', '</li>')
@@ -160,6 +163,7 @@ if len(sys.argv) == 2:
 else: # use standard test file
     if platform == "darwin":
         filePath = r'testFile.docx'
+#         filePath = r'/Users/david/Desktop/C1.docx'
     elif platform == "win32":
         filePath = r'testFile.docx'  
         filePath = r'C:\Users\dmckinnon\Desktop\C1.docx'
@@ -183,6 +187,8 @@ html = cleanHTML(filePath, htmlDirectory)
 subChapters(html, fileName, htmlDirectory, sideMenu, workingDirectory)
 # bigFile(html, fileName, htmlDirectory)
 copyStyleSheet(workingDirectory, htmlDirectory)
+
+
 
 
 

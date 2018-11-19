@@ -43,6 +43,11 @@ p.legend {
   max-width: 550px;
 }
 
+p.mathdisplay {
+  text-indent: 0%;
+  text-align: center;
+}
+
 /* this keeps line spacing even when super and subscripts are present */
 sub, sup { line-height: 0; }
 
