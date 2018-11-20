@@ -19,7 +19,7 @@ p {
   text-indent: 4%;
   margin-top: 0px;
   margin-bottom: 5px;
-  max-width: 550px;
+  max-width: 600px;
 }
 
 ol {
@@ -27,7 +27,7 @@ ol {
   font-size: 18px;
   color: #404040;
   line-height: 120%;
-  max-width: 550px;
+  max-width: 600px;
 }
 
 p.legend {
@@ -40,7 +40,7 @@ p.legend {
   text-align: left;
   margin-top: 0px;
   margin-bottom: 0px;
-  max-width: 550px;
+  max-width: 600px;
 }
 
 p.mathdisplay {
@@ -171,7 +171,7 @@ a {
 div.tablecontainer {
   margin-left: 0px; /* undo effects of div above */
   padding: 0px;     /* undo effects of div above */
-  max-width: 550px;
+  max-width: 600px;
   }
 table {
   text-align:center;
@@ -180,7 +180,7 @@ table {
   font-family: Helvetica;
   font-size: 11pt;
   color: #404040;
-  max-width: 550px;
+  max-width: 600px;
   margin-top: 15px;
   margin-bottom: 0px
 }
